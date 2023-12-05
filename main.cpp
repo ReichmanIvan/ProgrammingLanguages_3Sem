@@ -2,14 +2,14 @@
  
 int main()
 {
-	List<std::string> first_list;
-	first_list.push_front("my");
-	first_list.push_front("name");
-	first_list.push_back("is");
-	first_list.push_front("Ivan");
+	List<int> first_list;
+	first_list.push_front(1);
+	first_list.push_front(2);
+	first_list.push_back(3);
+	first_list.push_front(4);
 	std::cout << first_list.get_size() << "\n";
 	std::cout << first_list.to_string() << "\t";
-	List<std::string> second_list;
+	List<int> second_list;
 	second_list = first_list;
 	std::cout << second_list.to_string();
 	return 0;
