@@ -6,9 +6,22 @@
 
 template <typename T>
 
+class List;
+
+template<typename T>
+bool operator==(const List<T>&rha, const List<T>&lha) noexcept;
+
+
+template<typename T>
+bool operator!=(const List<T>&rha, const List<T>&lha) noexcept;
+
+template <typename T>
+
 class List
 {
 public:
+
+
 
 	/**
 	* \brief Функция, инициализирующая список
@@ -36,7 +49,7 @@ public:
 	* \brief Функция, добавляющая элемент в начало списка
 	* \param data Данные, которые будут добавлены
 	*/
-	void push_front(T data);
+	void push_front(const T& data);
 
 	/**
 	* \brief Функция, добавляющая элемент в конец списка
@@ -58,20 +71,20 @@ public:
 	* \brief Функция, возвращающая размер списка
 	* \return Размер списка
 	*/
-	int get_size();
+	size_t get_size();
 
 	/**
 	* \brief Функция, превращающая список в строку
 	* \return Строка, состоящая из узлов
 	*/
-	std::string to_string();
+	std::string to_string() const;
 
 	/**
 	* \brief Функция, перегружающая оператор =
 	* \param second_list Список, который будет скопирован
 	* \return Скопированный список
 	*/
-	List& operator=(const List& second_list);
+	List<T>& operator=(const List<T>& second_list);
 
 	/**
 	* \brief Функция, перегружающая оператор =
@@ -79,8 +92,6 @@ public:
 	* \return Перемещенный список
 	*/
 	List& operator=(List&& second_list) noexcept;
-
-	bool operator==(List& second_list);
 
 
 private:
@@ -115,13 +126,13 @@ List<T>::List(const List& second_list)
 }
 
 template <typename T>
-List<T>::List(List&& second_list) noexcept
+List<T>::List(List&& second_list) noexcept : List()
 {
-	std::exchange(this->first_element, second_list.first_element);
+	std::swap(this->first_element, second_list.first_element);
 }
 
 template <typename T>
-void List<T>::push_front(T data)
+void List<T>::push_front(const T& data)
 {
 	first_element = new Node<T>(data, first_element);
 	size++;
@@ -169,13 +180,13 @@ void List<T>::clear_list()
 }
 
 template <typename T>
-int List<T>::get_size()
+size_t List<T>::get_size()
 {
 	return size;
 }
 
 template <typename T>
-std::string List<T>::to_string()
+std::string List<T>::to_string() const
 {
 	std::stringstream buffer;
 	if (first_element != nullptr)
@@ -190,28 +201,42 @@ std::string List<T>::to_string()
 	return buffer.str();
 }
 
-template <typename T>
-List<T>& List<T>::operator=(const List<T>& second_list)
+template<typename T>
+inline List<T>& List<T>::operator=(const List<T>& second_list)
 {
-	if (this->first_element == nullptr)
+	if (*this == second_list)
 	{
-		for (Node<T>* node = second_list.first_element; node != nullptr; node = node->next_element)
+		List other_list;
+
+		if (other_list.first_element == nullptr)
 		{
-			this->push_back(node->data);
+			for (Node<T>* node = second_list.first_element; node != nullptr; node = node->next_element)
+			{
+				other_list.push_back(node->data);
+			}
 		}
+
+		std::swap(this->first_element, other_list.first_element);
+		std::exchange(this->size, other_list.size);
+		return *this;
 	}
-	return *this;
 }
 
 template <typename T>
 List<T>& List<T>::operator=(List<T>&& second_list) noexcept
 {
-	std::exchange(this->first_element, second_list.first_element);
+	std::swap(this->first_element, second_list.first_element);
 	return *this;
 }
 
-template <typename T>
-bool List<T>::operator==(List<T>& second_list)
+template<typename T>
+inline bool operator==(const List<T>& rha, const List<T>& lha) noexcept
 {
-	return(this->to_string() == second_list.to_string());
+	return(lha.to_string() == rha.to_string());
+}
+
+template<typename T>
+inline bool operator!=(const List<T>& rha, const List<T>& lha) noexcept
+{
+	return!(lha.to_string() == rha.to_string());
 }
