@@ -21,73 +21,71 @@ class List
 {
 public:
 
-
-
 	/**
-	* \brief Функция, инициализирующая список
+	* @brief Функция, инициализирующая список
 	*/
 	List();
 
 	/**
-	* \brief Функция, удаляющая список
+	* @brief Функция, удаляющая список
 	*/
 	~List();
 
 	/**
-	* \brief Функция, копирующая список
+	* @brief Функция, копирующая список
 	* \param second_list Список, который будет скопирован
 	*/
 	List(const List& second_list);
 
 	/**
-	* \brief Функция, перемещающая список
+	* @brief Функция, перемещающая список
 	* \param second_list Список, который будет перемещен
 	*/
 	List(List&& second_list) noexcept;
 
 	/**
-	* \brief Функция, добавляющая элемент в начало списка
+	* @brief Функция, добавляющая элемент в начало списка
 	* \param data Данные, которые будут добавлены
 	*/
 	void push_front(const T& data);
 
 	/**
-	* \brief Функция, добавляющая элемент в конец списка
+	* @brief Функция, добавляющая элемент в конец списка
 	* \param data Данные, которые будут добавлены
 	*/
 	void push_back(T data);
 
 	/**
-	* \brief Функция, удаляющая узел в начале списка
+	* @brief Функция, удаляющая узел в начале списка
 	*/
 	void del_front();
 
 	/**
-	* \brief Функция, удаляющая все узлы списка
+	* @brief Функция, удаляющая все узлы списка
 	*/
 	void clear_list();
 
 	/**
-	* \brief Функция, возвращающая размер списка
+	* @brief Функция, возвращающая размер списка
 	* \return Размер списка
 	*/
 	size_t get_size();
 
 	/**
-	* \brief Функция, превращающая список в строку
+	* @brief Функция, превращающая список в строку
 	* \return Строка, состоящая из узлов
 	*/
 	std::string to_string() const;
 
 	/**
-	* \brief Функция, перегружающая оператор =
+	* @brief Функция, перегружающая оператор =
 	* \param second_list Список, который будет скопирован
 	* \return Скопированный список
 	*/
 	List<T>& operator=(const List<T>& second_list);
 
 	/**
-	* \brief Функция, перегружающая оператор =
+	* @brief Функция, перегружающая оператор =
 	* \param second_list Список, который будет перемещен
 	* \return Перемещенный список
 	*/
@@ -206,7 +204,7 @@ inline List<T>& List<T>::operator=(const List<T>& second_list)
 {
 	if (*this == second_list)
 	{
-		List other_list;
+		List other_list(second_list);
 
 		if (other_list.first_element == nullptr)
 		{
