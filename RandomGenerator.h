@@ -5,7 +5,7 @@
 #include <random>
 
 /** 
-* @brief класс RandomGenerator.
+* @brief класс RandomGenerator
 */
 class RandomGenerator : public Generator
 
