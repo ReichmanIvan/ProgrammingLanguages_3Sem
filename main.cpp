@@ -8,9 +8,10 @@ int main()
 	first_list.push_back(3);
 	first_list.push_front(4);
 	std::cout << first_list.get_size() << "\n";
-	std::cout << first_list.to_string() << "\t";
+	std::cout << first_list.to_string() << "\n";
 	List<int> second_list;
 	second_list = first_list;
+	std::cout << second_list.get_size() << "\n";
 	std::cout << second_list.to_string();
 	return 0;
 };
