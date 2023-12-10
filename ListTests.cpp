@@ -122,6 +122,8 @@ namespace ListTests
 
 			first_list.push_back(2);
 
+			copied_list = first_list;
+
 			//Arrange
 
 			Assert::IsFalse(copied_list == first_list);
