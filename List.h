@@ -24,14 +24,12 @@ public:
 	/**
 	* @brief Функция, инициализирующая список
 	*/
-	List();
+	List(std::initializer<T> list);
 
 	/**
 	* @brief Функция, удаляющая список
 	*/
 	~List();
-
-	List(std::initializer<T> list);
 
 	/**
 	* @brief Функция, копирующая список
