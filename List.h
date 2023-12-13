@@ -31,6 +31,8 @@ public:
 	*/
 	~List();
 
+	List(std::initializer<T> list);
+
 	/**
 	* @brief Функция, копирующая список
 	* \param second_list Список, который будет скопирован
@@ -53,7 +55,7 @@ public:
 	* @brief Функция, добавляющая элемент в конец списка
 	* \param data Данные, которые будут добавлены
 	*/
-	void push_back(T data);
+	void push_back(const T& data);
 
 	/**
 	* @brief Функция, удаляющая узел в начале списка
@@ -100,7 +102,7 @@ private:
 };
 
 template <typename T>
-List<T>::List()
+List<T>::List(std::initializer<T> list)
 	:first_element(nullptr), size(0)
 {
 }
@@ -137,7 +139,7 @@ void List<T>::push_front(const T& data)
 }
 
 template <typename T>
-void List<T>::push_back(T data)
+void List<T>::push_back(const T& data)
 {
 	if (first_element == nullptr)
 	{
@@ -205,15 +207,6 @@ inline List<T>& List<T>::operator=(const List<T>& second_list)
 	if (*this == second_list)
 	{
 		List other_list(second_list);
-
-		if (other_list.first_element == nullptr)
-		{
-			for (Node<T>* node = second_list.first_element; node != nullptr; node = node->next_element)
-			{
-				other_list.push_back(node->data);
-			}
-		}
-
 		std::swap(this->first_element, other_list.first_element);
 		std::exchange(this->size, other_list.size);
 		return *this;
