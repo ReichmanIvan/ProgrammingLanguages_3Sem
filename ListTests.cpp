@@ -14,7 +14,7 @@ namespace ListTests
 
 			//Arrange
 
-			List<int> default_list;
+			List<int> default_list{};
 
 			std::string expected_string = "1 2 ";
 
@@ -38,7 +38,7 @@ namespace ListTests
 
 			//Arrange
 
-			List<int> default_list;
+			List<int> default_list{};
 
 			std::string expected_string = "2 1 ";
 
@@ -62,7 +62,7 @@ namespace ListTests
 
 			//Arrange
 
-			List<int> default_list;
+			List<int> default_list{};
 
 			int expected = 3;
 
@@ -88,9 +88,9 @@ namespace ListTests
 
 			//Arrange
 
-			List<int> first_list;
+			List<int> first_list{};
 
-			List<int> second_list;
+			List<int> second_list{};
 
 			//Act
 
@@ -112,9 +112,9 @@ namespace ListTests
 		{
 			//Arrange
 
-			List<int> first_list;
+			List<int> first_list{};
 
-			List<int> copied_list;
+			List<int> copied_list{};
 
 			//Act
 
@@ -139,7 +139,7 @@ namespace ListTests
 
 			//Arrange
 
-			List<std::string> default_list;
+			List<std::string> default_list{};
 
 			std::string expected_string = "1 2 ";
 
@@ -163,7 +163,7 @@ namespace ListTests
 
 			//Arrange
 
-			List<std::string> default_list;
+			List<std::string> default_list{};
 
 			std::string expected_string = "2 1 ";
 
@@ -187,7 +187,7 @@ namespace ListTests
 
 			//Arrange
 
-			List<std::string> default_list;
+			List<std::string> default_list{};
 
 			int expected = 3;
 
@@ -213,9 +213,9 @@ namespace ListTests
 
 			//Arrange
 
-			List<std::string> first_list;
+			List<std::string> first_list{};
 
-			List<std::string> second_list;
+			List<std::string> second_list{};
 
 			//Act
 
@@ -237,9 +237,9 @@ namespace ListTests
 		{
 			//Arrange
 
-			List<std::string> first_list;
+			List<std::string> first_list{};
 
-			List<std::string> copied_list;
+			List<std::string> copied_list{};
 
 			//Act
 
