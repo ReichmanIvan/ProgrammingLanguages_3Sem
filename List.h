@@ -9,11 +9,11 @@ template <typename T>
 class List;
 
 template<typename T>
-bool operator==(const List<T>&rha, const List<T>&lha) noexcept;
+bool operator==(const List<T>& rha, const List<T>& lha) noexcept;
 
 
 template<typename T>
-bool operator!=(const List<T>&rha, const List<T>&lha) noexcept;
+bool operator!=(const List<T>& rha, const List<T>& lha) noexcept;
 
 template <typename T>
 
@@ -33,32 +33,32 @@ public:
 
 	/**
 	* @brief Функция, копирующая список
-	* \param second_list Список, который будет скопирован
+	* @param second_list Список, который будет скопирован
 	*/
 	List(const List& second_list);
 
 	/**
 	* @brief Функция, перемещающая список
-	* \param second_list Список, который будет перемещен
+	* @param second_list Список, который будет перемещен
 	*/
 	List(List&& second_list) noexcept;
 
 	/**
 	* @brief Функция, добавляющая элемент в начало списка
-	* \param data Данные, которые будут добавлены
+	* @param data Данные, которые будут добавлены
 	*/
 	void push_front(const T& data);
 
 	/**
 	* @brief Функция, добавляющая элемент в конец списка
-	* \param data Данные, которые будут добавлены
+	* @param data Данные, которые будут добавлены
 	*/
 	void push_back(const T& data);
 
 	/**
 	* @brief Функция, удаляющая узел в начале списка
 	*/
-	void del_front();
+	void delete_front();
 
 	/**
 	* @brief Функция, удаляющая все узлы списка
@@ -67,27 +67,27 @@ public:
 
 	/**
 	* @brief Функция, возвращающая размер списка
-	* \return Размер списка
+	* @return Размер списка
 	*/
 	size_t get_size();
 
 	/**
 	* @brief Функция, превращающая список в строку
-	* \return Строка, состоящая из узлов
+	* @return Строка, состоящая из узлов
 	*/
 	std::string to_string() const;
 
 	/**
 	* @brief Функция, перегружающая оператор =
-	* \param second_list Список, который будет скопирован
-	* \return Скопированный список
+	* @param second_list Список, который будет скопирован
+	* @return Скопированный список
 	*/
 	List<T>& operator=(const List<T>& second_list);
 
 	/**
 	* @brief Функция, перегружающая оператор =
-	* \param second_list Список, который будет перемещен
-	* \return Перемещенный список
+	* @param second_list Список, который будет перемещен
+	* @return Перемещенный список
 	*/
 	List& operator=(List&& second_list) noexcept;
 
@@ -112,7 +112,7 @@ List<T>::~List()
 }
 
 template <typename T>
-List<T>::List(const List& second_list)
+List<T>::List(const List& second_list):List()
 {
 	if (this->first_element == nullptr)
 	{
@@ -145,7 +145,7 @@ void List<T>::push_back(const T& data)
 	}
 	else
 	{
-		Node<T>* this_node = first_element;
+		auto this_node = first_element;
 		while (this_node->next_element != nullptr)
 		{
 			this_node = this_node->next_element;
@@ -157,7 +157,7 @@ void List<T>::push_back(const T& data)
 }
 
 template <typename T>
-void List<T>::del_front()
+void List<T>::delete_front()
 {
 	if (first_element != nullptr)
 	{
