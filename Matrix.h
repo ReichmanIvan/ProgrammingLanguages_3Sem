@@ -10,7 +10,7 @@
 /**
 * @brief класс Матрицы
 */
-class Matrix
+class Matrix final
 {
 public:
 
@@ -24,13 +24,13 @@ public:
 	/**
 	* @brief Деструктор
 	*/
-	~Matrix();
+	~Matrix() = default;
 
 	/**
 	* @brief Конструктор копирования
 	* @param other Матрица для копирования
 	*/
-	Matrix(const Matrix& other);
+	Matrix(const Matrix& other) = default;
 
 	/**
 	* @brief Получение кол-ва строк
@@ -69,7 +69,7 @@ public:
 	* @param other Матрица для копирования
 	* @return Элемент матрицы по индексу
 	*/
-	Matrix& operator=(const Matrix& other);
+	Matrix& operator=(const Matrix& other) = default;
 
 	/**
 	* @brief Переопределение оператора вывода
