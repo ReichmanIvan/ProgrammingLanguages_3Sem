@@ -1,8 +1,18 @@
 #include "Matrix.h"
 
-Matrix::Matrix(const size_t row, const size_t column, Generator* generator) 
-	: row(row), column(column)
+Matrix::Matrix(const size_t row, const size_t column, Generator* generator)
+    : row(row), column(column)
 {
+    if (column && row < 0)
+    {
+        throw std::invalid_argument("Неправильный размер матрицы :(");
+    }
+
+    if (generator == nullptr)
+    {
+        throw std::invalid_argument("Ошибка генератора матрицы :(");
+    }
+
     std::vector<std::vector<int>> matrix(row, std::vector<int>(column));
 
     for (size_t i = 0; i < row; i++)
@@ -12,29 +22,11 @@ Matrix::Matrix(const size_t row, const size_t column, Generator* generator)
             matrix[i][j] = generator->generate();
         }
     }
-
-    this->matrix = matrix;
-    if (is_empty())
-    {
-        throw std::out_of_range("Error! Matrix is empty!");
-    }
-}
-
-Matrix::~Matrix()
-{
-    if (!is_empty())
-    {
-        this->matrix.clear();
-    }
-}
-
-Matrix::Matrix(const Matrix& other) : row(other.row), column(other.column), matrix(other.matrix)
-{
 }
 
 size_t Matrix::get_row() const
 {
-	return matrix.size();
+    return matrix.size();
 }
 
 size_t Matrix::get_column() const
@@ -61,20 +53,6 @@ const std::vector<int>& Matrix::operator[](size_t index) const
     return matrix[index];
 }
 
-Matrix& Matrix::operator=(const Matrix& other)
-{
-    if (this != &other)
-    {
-        Matrix temp(other);
-
-        std::swap(matrix, temp.matrix);
-        std::swap(row, temp.row);
-        std::swap(column, temp.column);
-    }
-
-    return *this;
-}
-
 std::string Matrix::matrix_to_string() const
 {
     std::stringstream buffer;
@@ -91,11 +69,20 @@ std::string Matrix::matrix_to_string() const
 
 void Matrix::delete_row(size_t pos, const std::vector<int>& row)
 {
-    if (pos > matrix.size())
+    if (pos >= matrix.size())
     {
-        throw std::out_of_range("Error!");
+        throw std::out_of_range("Error! Invalid position.");
     }
-        matrix.erase(matrix.begin() + pos);
+
+    auto it = matrix.begin() + pos;
+    if (std::equal(it->begin(), it->end(), row.begin()))
+    {
+        matrix.erase(it);
+    }
+    else
+    {
+        throw std::invalid_argument("Error! Row does not match at the specified position.");
+    }
 }
 
 std::vector<std::vector<int>> Matrix::get_matrix()
@@ -105,6 +92,11 @@ std::vector<std::vector<int>> Matrix::get_matrix()
 
 std::ostream& operator<<(std::ostream& os, Matrix& matrix)
 {
-    os << matrix.matrix_to_string();
+    for (size_t i = 0; i < matrix.row;i++) {
+        for (int j = 0;j < matrix.column;j++) {
+            os << matrix[i][j];
+        }
+    }
+    
     return os;
 }
