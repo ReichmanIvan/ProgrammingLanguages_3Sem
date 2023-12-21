@@ -4,7 +4,7 @@
 
 #include <random>
 
-/** 
+/**
 * @brief класс RandomGenerator
 */
 class RandomGenerator : public Generator
@@ -14,11 +14,7 @@ class RandomGenerator : public Generator
 private:
 
 	std::uniform_int_distribution<int> distribution;
-
 	std::mt19937 generator;
-
-
-
 
 public:
 
@@ -29,12 +25,8 @@ public:
 	*/
 	RandomGenerator(const int min, const int max);
 
-
-
-
 	/**
 	* @brief Метод заполения generate()
 	*/
 	int generate() override;
-
 };
