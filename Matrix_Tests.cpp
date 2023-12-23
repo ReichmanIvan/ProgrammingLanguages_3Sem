@@ -136,11 +136,11 @@ namespace MatrixTests
 
 		TEST_METHOD(MinValueTest_ValidData_Success)
 		{
-			std::istringstream in("9 -8 -10 4 5 -6 2 5 4");
+			std::istringstream in("1 2 3 4 5 6 7 8 9");
 			IStreamGenerator input(in);
 			Matrix matrix(3, 3, &input);
 			std::stringstream buffer;
-			std::string expected_output = "-10";
+			std::string expected_output = "1";
 
 			Tasks task(matrix);
 			buffer << task.get_min_value();
@@ -150,11 +150,11 @@ namespace MatrixTests
 		}
 		TEST_METHOD(TaskOneTest_ValidData_Success)
 		{
-			std::istringstream in("9 -8 -10 4 5 -6 2 5 4");
+			std::istringstream in("1 2 3 4 5 6 7 8 -9");
 			IStreamGenerator input(in);
 			Matrix matrix(3, 3, &input);
 			Tasks task(matrix);
-			std::string expected_output = "9 -8 10 \n4 5 -6 \n2 5 4 \n";
+			std::string expected_output = "1 2 3 \n4 5 6 \n7 8 9 \n";
 
 			Assert::AreEqual(task.Task1().matrix_to_string(), expected_output);
 		}
