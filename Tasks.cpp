@@ -46,10 +46,10 @@ Matrix Tasks::Task2()
 
 int Tasks::get_min_value()
 {
-    int min_value = 0;
+    int min_value = matrix[0][0];
+
     for (size_t i = 0; i < matrix.get_column(); i++)
     {
-        min_value = matrix[0][i];
         for (size_t j = 1; j < matrix.get_row(); j++)
         {
             if (matrix[j][i] < min_value)
@@ -58,6 +58,7 @@ int Tasks::get_min_value()
             }
         }
     }
+
     return min_value;
 }
 
