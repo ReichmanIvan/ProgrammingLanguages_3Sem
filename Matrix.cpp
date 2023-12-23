@@ -3,7 +3,7 @@
 Matrix::Matrix(const size_t row, const size_t column, Generator* generator)
     : row(row), column(column)
 {
-    if (column && row < 0)
+    if (column < 0 || row < 0)
     {
         throw std::invalid_argument("Неправильный размер матрицы :(");
     }
@@ -14,7 +14,7 @@ Matrix::Matrix(const size_t row, const size_t column, Generator* generator)
     }
 
     std::vector<std::vector<int>> matrix(row, std::vector<int>(column));
-
+    
     for (size_t i = 0; i < row; i++)
     {
         for (size_t j = 0; j < column; j++)
@@ -22,6 +22,8 @@ Matrix::Matrix(const size_t row, const size_t column, Generator* generator)
             matrix[i][j] = generator->generate();
         }
     }
+
+    this->matrix = matrix;
 }
 
 size_t Matrix::get_row() const
@@ -50,6 +52,10 @@ std::vector<int>& Matrix::operator[](size_t index)
 
 const std::vector<int>& Matrix::operator[](size_t index) const
 {
+    if (index < 0)
+    {
+        throw std::out_of_range("Ошибка! Неправильный индекс");
+    }
     return matrix[index];
 }
 
@@ -92,11 +98,13 @@ std::vector<std::vector<int>> Matrix::get_matrix()
 
 std::ostream& operator<<(std::ostream& os, Matrix& matrix)
 {
-    for (size_t i = 0; i < matrix.row;i++) {
-        for (int j = 0;j < matrix.column;j++) {
-            os << matrix[i][j];
+    for (size_t i = 0; i < matrix.row;i++) 
+    {
+        for (int j = 0;j < matrix.column;j++) 
+        {
+            os << matrix[i][j] << " ";
         }
+        os << std::endl;
     }
-    
     return os;
 }
