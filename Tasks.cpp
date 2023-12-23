@@ -1,7 +1,7 @@
 #include "Tasks.h"
 
-Tasks::Tasks(Matrix matrix) 
-	: matrix(matrix)
+Tasks::Tasks(Matrix matrix)
+    : matrix(matrix)
 {
 }
 
@@ -27,19 +27,21 @@ Matrix Tasks::Task2()
 {
     int max_value = this->matrix[0][0];
     size_t row_index = 0;
-
-    for (size_t i = 0; i < matrix.get_matrix().size(); i++) 
+    for (size_t i = 0; i < this->matrix.get_matrix().size(); i++) 
     {
-        for (size_t j = 0; j < matrix[i].size(); j++) {
-            if (matrix[i][j] > max_value) {
-                max_value = matrix[i][j];
+        for (size_t j = 0; j < this->matrix[i].size(); j++) 
+        {
+            if (this->matrix[i][j] > max_value) 
+            {
+                max_value = this->matrix[i][j];
                 row_index = i;
             }
         }
     }
+    Matrix new_matrix = matrix;
 
-    matrix.get_matrix().erase(matrix.get_matrix().begin() + row_index);
-    return matrix;
+    this->matrix = new_matrix;
+    return new_matrix;
 }
 
 int Tasks::get_min_value()
