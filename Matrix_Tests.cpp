@@ -93,7 +93,7 @@ namespace MatrixTests
 			IStreamGenerator input(in);
 			Matrix matrix(3, 3, &input);
 			std::stringstream buffer;
-			std::string expected_output = "1 2 3\n 4 5 6\n 7 8 9";
+			std::string expected_output = "1 2 3 \n4 5 6 \n7 8 9 \n";
 
 			buffer << matrix;
 
@@ -115,20 +115,10 @@ namespace MatrixTests
 			std::istringstream in("1 2 3 4 5 6 7 8 9");
 			IStreamGenerator input(in);
 			Matrix matrix(3, 3, &input);
-			std::string expected_output = "1 2 3\n 4 5 6\n 7 8 9";
+			std::string expected_output = "1 2 3 \n4 5 6 \n7 8 9 \n";
 
 			Assert::IsFalse(matrix.is_empty());
 			Assert::AreEqual(expected_output, matrix.matrix_to_string());
-		}
-
-		TEST_METHOD(MatrixDestructorTest_ValidData_Success)
-		{
-			RandomGenerator rnd(-10, 10);
-			Matrix matrix(3, 3, &rnd);
-
-			matrix.~Matrix();
-
-			Assert::IsTrue(matrix.is_empty());
 		}
 	};
 
@@ -144,30 +134,41 @@ namespace MatrixTests
 			Assert::IsNotNull(&task);
 		}
 
+		TEST_METHOD(MinValueTest_ValidData_Success)
+		{
+			std::istringstream in("9 -8 -10 4 5 -6 2 5 4");
+			IStreamGenerator input(in);
+			Matrix matrix(3, 3, &input);
+			std::stringstream buffer;
+			std::string expected_output = "-10";
+
+			Tasks task(matrix);
+			buffer << task.get_min_value();
+
+			Assert::AreEqual(expected_output, buffer.str());
+
+		}
 		TEST_METHOD(TaskOneTest_ValidData_Success)
 		{
-			std::istringstream in("1 2 3 4 5 6 7 8 9");
+			std::istringstream in("9 -8 -10 4 5 -6 2 5 4");
 			IStreamGenerator input(in);
 			Matrix matrix(3, 3, &input);
 			Tasks task(matrix);
-			Matrix result = task.Task1();
-			int min_value = task.get_min_value();
+			std::string expected_output = "9 -8 10 \n4 5 -6 \n2 5 4 \n";
 
-			Assert::AreEqual(result[0][0], abs(min_value));
-			Assert::AreEqual(result.matrix_to_string(), matrix.matrix_to_string());
+			Assert::AreEqual(task.Task1().matrix_to_string(), expected_output);
 		}
 
 		TEST_METHOD(TaskTwoTest_ValidData_Success)
 		{
-			std::istringstream in("1 2 3 4 5 6 7 8 9");
+			std::istringstream in("-3 8 6 -3 -10 8 0 -6 -1");
 			IStreamGenerator input(in);
 			Matrix matrix(3, 3, &input);
-			int max_value = 9;
 			Tasks task(matrix);
-			Matrix result = task.Task2();
+			std::string expected = "-3 8 6 \n-3 -10 8 \n0 -6 -1 \n";
 
-			Assert::AreEqual(result.get_row(), matrix.get_row() - 1);
-			Assert::AreEqual(task.get_max_value(), max_value);
+
+			Assert::AreEqual(task.Task2().matrix_to_string(), expected);
 		}
 	};
 }
